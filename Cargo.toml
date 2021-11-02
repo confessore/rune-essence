@@ -1,0 +1,18 @@
+[package]
+name = "rune-essence"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "rel"
+path = "src/lib.rs"
+
+[[bin]]
+name = "reb"
+path = "src/main.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+hex = "^0.3.0"
+crypto-hash = "^0.3.0"
