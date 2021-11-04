@@ -7,9 +7,6 @@ pub use crate::blockchain::Blockchain;
 pub mod transaction;
 pub use crate::transaction::Transaction;
 
-type Hash = Vec<u8>;
-type Address = String;
-
 use std::time::{SystemTime, UNIX_EPOCH};
 
 pub fn now() -> u128 {

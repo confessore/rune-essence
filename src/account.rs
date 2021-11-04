@@ -1,14 +1,15 @@
 use super::*;
 
 pub struct Account {
-    pub pub_key: Address,
-    priv_key: Address,
+    pub address: Vec<u8>
+    pub pub_key: String,
+    priv_key: String,
     pub value: u128,
     pub transactions: Vec<Transaction>
 }
 
 impl Account {
-    pub fn new(&self) -> Self {
+    pub fn new() -> Self {
         Account {
 
         }

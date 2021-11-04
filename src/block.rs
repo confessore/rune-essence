@@ -4,8 +4,8 @@ use std::fmt::{self, Debug, Formatter};
 pub struct Block {
     pub index: u128,
     pub timestamp: u128,
-    pub hash: Hash,
-    pub prev_hash: Hash,
+    pub hash: Vec<u8>,
+    pub prev_hash: Vec<u8>,
     pub nonce: u128,
     pub transactions: Vec<Transaction>,
     pub difficulty: u128
@@ -15,7 +15,7 @@ impl Block {
     pub fn new(
         index: u128,
         timestamp: u128,
-        prev_hash: Hash,
+        prev_hash: Vec<u8>,
         transactions: Vec<Transaction>,
         difficulty: u128) -> Self {
             Block {
@@ -69,6 +69,6 @@ impl Debug for Block {
     }
 }
 
-pub fn check_difficulty(hash: &Hash, difficulty: u128) -> bool {
+pub fn check_difficulty(hash: &Vec<u8>, difficulty: u128) -> bool {
     difficulty > difficulty_bytes_to_u128(&hash)
 }
