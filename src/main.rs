@@ -1,3 +1,6 @@
+use rel::*;
+
 fn main() {
-    println!("Hello, world!");
+    let s = gen();
+    println!("{}", s);
 }

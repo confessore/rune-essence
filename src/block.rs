@@ -4,28 +4,28 @@ use std::fmt::{self, Debug, Formatter};
 pub struct Block {
     pub index: u128,
     pub timestamp: u128,
-    pub hash: Vec<u8>,
-    pub prev_hash: Vec<u8>,
+    pub hash: Hash,
+    pub prev_hash: Hash,
+    pub difficulty: u128,
     pub nonce: u128,
-    pub transactions: Vec<Transaction>,
-    pub difficulty: u128
+    pub transactions: Vec<Transaction>
 }
 
 impl Block {
     pub fn new(
         index: u128,
         timestamp: u128,
-        prev_hash: Vec<u8>,
-        transactions: Vec<Transaction>,
-        difficulty: u128) -> Self {
+        prev_hash: Hash,
+        difficulty: u128,
+        transactions: Vec<Transaction>) -> Self {
             Block {
                 index,
                 timestamp,
                 hash: vec![0; 32],
                 prev_hash,
+                difficulty,
                 nonce: 0,
-                transactions,
-                difficulty
+                transactions
             }
     }
 
@@ -47,13 +47,13 @@ impl Hashable for Block {
         bytes.extend(&u128_to_bytes(&self.index));
         bytes.extend(&u128_to_bytes(&self.timestamp));
         bytes.extend(&self.prev_hash);
+        bytes.extend(&u128_to_bytes(&self.difficulty));
         bytes.extend(&u128_to_bytes(&self.nonce));
         bytes.extend(
             self.transactions
                 .iter()
                 .flat_map(|transaction| transaction.bytes())
                 .collect::<Vec<u8>>());
-        bytes.extend(&u128_to_bytes(&self.difficulty));
         bytes
     }
 }
@@ -69,6 +69,6 @@ impl Debug for Block {
     }
 }
 
-pub fn check_difficulty(hash: &Vec<u8>, difficulty: u128) -> bool {
+pub fn check_difficulty(hash: &Hash, difficulty: u128) -> bool {
     difficulty > difficulty_bytes_to_u128(&hash)
 }

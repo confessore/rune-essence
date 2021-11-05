@@ -5,7 +5,6 @@ pub struct Account {
     pub pub_key: String,
     priv_key: String,
     pub value: u128,
-    pub transactions: Vec<Transaction>
 }
 
 impl Account {
@@ -22,11 +21,6 @@ impl Hashable for Account {
         bytes.extend(&self.pub_key.as_bytes());
         bytes.extend(&self.priv_key.as_bytes());
         bytes.extend(&u128_to_bytes(&self.value));
-        bytes.extend(
-            self.transactions
-                .iter()
-                .flat_map(|transaction| transaction.bytes())
-                .collect::<Vec<u8>>());
         bytes
     }
 }

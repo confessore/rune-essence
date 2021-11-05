@@ -7,6 +7,9 @@ pub use crate::blockchain::Blockchain;
 pub mod transaction;
 pub use crate::transaction::Transaction;
 
+type Hash = Vec<u8>;
+
+use rand::{distributions::Alphanumeric, Rng};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 pub fn now() -> u128 {
@@ -14,6 +17,14 @@ pub fn now() -> u128 {
         .duration_since(UNIX_EPOCH)
         .unwrap();
     duration.as_secs() as u128 * 1000 + duration.subsec_millis() as u128
+}
+
+pub fn gen() -> String {
+    rand::thread_rng()
+        .sample_iter(&Alphanumeric)
+        .take(8)
+        .map(char::from)
+        .collect()
 }
 
 pub fn u32_to_bytes(u: &u32) -> [u8; 4] {
